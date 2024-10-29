@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'index' %}" >
+                AskPupkin
+            </a>
+        </div>
+         <div class="search-form">
+            <form action="{% url 'search' ' ' %}">
+                <input type="text" oninput="this.form.action = '/tag/' + encodeURIComponent(this.value);" class="search-form-input" placeholder="Введите ваш запрос" required >
+            </form>
+        </div>
+        <a href="{% url 'ask' %}" class="ask-form-button">ASK!</a>
+        <div class="account">
+            <div class="account-image">
+                <img src="./image.jpg" alt="Image">
+            </div>
+            <div class="account-content">
+                <div class="account-name">Dr. Pepper</div>
+                <div class="account-actions">
+                    <a href="{% url 'settings' %}">Settings</a>
+                    <a href="./logout.html">Log out</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+ <aside class="sidebar">
+                <section class="popular-tags">
+                    <h2>Popular Tags</h2>
+                    <div class="tags">
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <br>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <br>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                    </div>
+                </section>
+                <section class="best-members">
+                    <h2>Best Members</h2>
+                    <ul class="best-members-list">
+                        <li><a href="#">Member</a></li>
+                        <li><a href="#">Member</a></li>
+                        <li><a href="#">Member</a></li>
+                        <li><a href="#">Member</a></li>
+                        <li><a href="#">Member</a></li>
+                    </ul>
+                </section>
+            </aside>
+
+        </div>
+    </main>
+    <footer class="foot">
+        AskPupkin
+    </footer>
+</body>
+</html>

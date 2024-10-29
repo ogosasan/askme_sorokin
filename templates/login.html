@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="title-bar">
+        <h1>Log in</h1>
+    </div>
+    <div class="content">
+
+        <div class="cards">
+            <div class="error">
+                Sorry, wrong password!
+            </div>
+        <form>
+        <div class="frm">
+            <label class="txt" for="login-form">Login</label>
+                <input id="login-form" class="login-form-input" type="text" placeholder="Enter your login here">
+
+        </div>
+        <div class="frm">
+            <label class="txt" for="pass-form">Password</label>
+                <input id="pass-form" class="login-form-input" type="text" placeholder="Enter your password here">
+
+        </div>
+        <button class="log-form-button">Log in</button>
+        </form>
+        <a href="#" class="new-acc">create new account</a>
+        </div>
+
+       {% endblock %}
+

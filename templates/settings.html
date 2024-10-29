@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+<main class="container">
+    <div class="title-bar">
+        <h1>Settings: user name</h1>
+    </div>
+    <div class="content">
+        <div class="cards">
+            <form>
+            <div class="frm">
+                <label class="txt">Login</label>
+                <input class="login-form-input" type="text" placeholder="Enter your login here">
+            </div>
+            <div class="frm">
+                <label class="txt">Email</label>
+                <input class="login-form-input" type="text" placeholder="Enter your email here">
+            </div>
+            <div class="frm">
+                <label class="txt">NickName</label>
+                <input class="login-form-input" type="text" placeholder="Enter your nickname here">
+            </div>
+            <div class="frm">
+                <label class="txt">Upload avatar</label>
+                <img src="./image.jpg" alt="Image" class="set-image">
+            </div>
+
+            <div class="txt">
+                <input type="file"  multiple />
+              </div>
+              <div>
+                <button class="log-form-button">Submit</button>
+              </div>
+
+            </form>
+
+        </div>
+
+        {% endblock %}

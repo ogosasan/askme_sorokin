@@ -1,0 +1,19 @@
+{% load static %}
+
+<article class="card">
+            <div class="card-left">
+                <img src="./image.jpg" alt="Image" class="ans-image">
+                <input type="number" class="ans-likes" value="5">
+            </div>
+
+            <div class="card-right">
+                <div class="card-right-content">
+                    <div class="card-text">{{answer.text}}</div>
+                </div>
+
+                <div class="ans-right-bottom">
+                    <input type="checkbox" id="checkbox-correct1">
+                    <label for="checkbox-correct1">Correct!</label>
+                </div>
+            </div>
+        </article>

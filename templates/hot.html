@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <main class="container">
+        <div class="title-bar">
+            <h1>Hot questions</h1>
+            <a href="{% url 'index' %}">New questions</a>
+        </div>
+
+        <div class="content">
+
+            <div class="cards">
+                {% for question in questions %}
+                    {% include 'layouts/question.html' %}
+                {% endfor %}
+                {% include 'layouts/pagination.html' %}
+            </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="title-bar">
+        <h1>Registration</h1>
+    </div>
+    <div class="content">
+
+        <div class="register-forms">
+            <div class="error">
+                Sorry, this email already registred!
+            </div>
+            <form>
+            <div class="frm">
+                <label for="login-form" class="txt">Login</label>
+                <input id="login-form" class="login-form-input" type="text" placeholder="Enter your login here">
+            </div>
+            <div class="frm" >
+                <label for="email-form" class="txt">Email</label>
+                <input id="email-form" class="login-form-input" type="text" placeholder="Enter your email here">
+            </div>
+            <div class="frm">
+                <label for="nick-form" class="txt">NickName</label>
+                <input id="nick-form" class="login-form-input" type="text" placeholder="Enter your nickname here">
+            </div>
+            <div class="frm">
+                <label for="pass-form" class="txt">Password</label>
+                <input id="pass-form" class="login-form-input" type="text" placeholder="Enter your password here">
+            </div>
+            <div class="frm">
+                <label for="repass-form" class="txt">Repeat password</label>
+                <input id="repass-form" class="login-form-input" type="text" placeholder="Repeat your password">
+            </div>
+
+            <div class="txt">
+              <input type="file"  multiple />
+            </div>
+            <div>
+              <button class="log-form-button">Submit</button>
+            </div>
+          </form>
+
+
+        </div>
+  {% endblock %}

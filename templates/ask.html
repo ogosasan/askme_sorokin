@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="title-bar">
+        <h1>New questions</h1>
+    </div>
+    <div class="content">
+        <div class="cards">
+            <form>
+            <div class="title-form">
+                <label for="title-input">Title</label>
+                    <input id="title-input" class="title-form-input" type="text">
+            </div>
+
+            <div class="title-form">
+                <label for="text-input">Text</label>
+                    <input id="text-input" class="text-form-input" type="text">
+            </div>
+
+            <div class="title-form">
+                <label for="tags-input">Tags</label>
+                    <input id="tags-input" class="title-form-input" type="text">
+            </div>
+            <button class="ask1-form-button">Ask!</button>
+            </form>
+
+
+            <div class="error">
+                <p>Please fill out all fields correctly.</p>
+            </div>
+        </div>
+
+            {% endblock %}

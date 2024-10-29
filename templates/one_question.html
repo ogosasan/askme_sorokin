@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<main class="container">
+<div class="content">
+    <div class="cards">
+       {% include 'layouts/question.html' %}
+        {% for answer in answers %}
+            {% include 'layouts/answer.html' %}
+        {% endfor %}
+        {% include 'layouts/pagination.html' %}
+
+
+        <hr color="black" width="100%">
+        <div class="your-ans-form">
+            <form action="#" class="button-form">
+                <input class="ans-form-input" type="text" placeholder="Enter your answer">
+                <button class="ask-form-button">Answer</button>
+            </form>
+        </div>
+    </div>
+
+    {% endblock %}
