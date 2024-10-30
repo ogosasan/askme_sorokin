@@ -5,11 +5,11 @@
 <main class="container">
 <div class="content">
     <div class="cards">
-       {% include 'layouts/question.html' %}
+       {% include 'components/question.html' %}
         {% for answer in answers %}
-            {% include 'layouts/answer.html' %}
+            {% include 'components/answer.html' %}
         {% endfor %}
-        {% include 'layouts/pagination.html' %}
+        {% include 'components/pagination.html' %}
 
 
         <hr color="black" width="100%">

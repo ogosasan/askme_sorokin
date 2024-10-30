@@ -1,7 +1,7 @@
 import copy
 
-from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
 
 # Create your views here.
@@ -22,32 +22,32 @@ ANSWERS = [
 
 
 def index(request):
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
-    page = paginator.page(page_num)
+    page = pagination(request, QUESTIONS)
     return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def hot(request):
     HOT_QUESTIONS = copy.deepcopy(QUESTIONS)
     HOT_QUESTIONS.reverse()
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(HOT_QUESTIONS, 5)
-    page = paginator.page(page_num)
+    page = pagination(request, HOT_QUESTIONS)
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def question(request, question_id):
-    one_question = QUESTIONS[question_id - 1]
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(ANSWERS, 5)
-    page = paginator.page(page_num)
+    try:
+        question_id = int(question_id)
+        if question_id <= 0 or question_id > len(QUESTIONS):
+            raise IndexError
+        one_question = QUESTIONS[question_id - 1]
+    except (ValueError, IndexError):
+        raise Http404("Question not found")
+
+    page = pagination(request, ANSWERS)
     return render(request, 'one_question.html', context={
         'question': one_question,
         'answers': page.object_list,
         'page_obj': page
     })
-
 
 def ask(request):
     return render(request, 'ask.html')
@@ -66,7 +66,19 @@ def registration(request):
 
 
 def search(request, tag):
-    page_num = int(request.GET.get('page', 1))
-    paginator = Paginator(QUESTIONS, 5)
-    page = paginator.page(page_num)
-    return render(request, 'search.html',  context={'questions': page.object_list, 'page_obj': page, 'tag':tag})
+    page = pagination(request, QUESTIONS)
+    return render(request, 'search.html', context={'questions': page.object_list, 'page_obj': page, 'tag': tag})
+
+
+def pagination(request, base):
+    try:
+        page_num = int(request.GET.get('page', 1))
+    except ValueError:
+        page_num = 1
+    paginator = Paginator(base, 5)
+    try:
+        page = paginator.page(page_num)
+    except (EmptyPage, PageNotAnInteger):
+        page = paginator.page(1)
+
+    return page
