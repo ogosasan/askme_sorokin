@@ -17,10 +17,11 @@
 
                             <div class="card-tags">
                                 Tags:
-                                <a href="#">Link</a>
-                                <a href="#">Link</a>
-                                <a href="#">Link</a>
-                                <a href="#">Link</a>
+                                {% for tag in question.tags.all %}
+                                    <a href="{% url 'search' tag.name %}">{{ tag.name }}</a>
+                                {% empty %}
+                                    <link>No tags available for this question.</link>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

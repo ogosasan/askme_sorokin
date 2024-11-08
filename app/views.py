@@ -1,53 +1,45 @@
 import copy
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
+from app.models import Question, Answer, QuestionLike, QuestionManager, Tag
 
-# Create your views here.
-QUESTIONS = [
-    {
-        'title': f'title {i}',
-        'id': i,
-        'text': f'text for question {i}'
-    } for i in range(1, 30)
-]
-
-ANSWERS = [
-    {
-        'id': i,
-        'text': f'text for answer {i}'
-    } for i in range(1, 15)
-]
 
 
 def index(request):
-    page = pagination(request, QUESTIONS)
-    return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page})
+    questions = QuestionManager.newest(Question.objects.all())
+    page = pagination(request, questions)
+    tags = Tag.objects.all()[:9]
+    return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page, 'tags': tags})
 
 
 def hot(request):
-    HOT_QUESTIONS = copy.deepcopy(QUESTIONS)
-    HOT_QUESTIONS.reverse()
-    page = pagination(request, HOT_QUESTIONS)
+    questions = QuestionManager.hot(Question.objects.all())
+    page = pagination(request, questions)
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def question(request, question_id):
+    questions = Question.objects.all()
     try:
         question_id = int(question_id)
-        if question_id <= 0 or question_id > len(QUESTIONS):
+        if question_id <= 0 or question_id > len(questions):
             raise IndexError
-        one_question = QUESTIONS[question_id - 1]
+        one_question = questions[question_id - 1]
     except (ValueError, IndexError):
         raise Http404("Question not found")
-
-    page = pagination(request, ANSWERS)
+    tags = one_question.tags.all()
+    answers = Answer.objects.filter(question=one_question)
+    page = pagination(request, answers)
     return render(request, 'one_question.html', context={
         'question': one_question,
         'answers': page.object_list,
-        'page_obj': page
+        'page_obj': page,
+        'tags': tags
     })
+
 
 def ask(request):
     return render(request, 'ask.html')
@@ -66,7 +58,8 @@ def registration(request):
 
 
 def search(request, tag):
-    page = pagination(request, QUESTIONS)
+    questions = Question.objects.filter(tags__name=tag)
+    page = pagination(request, questions)
     return render(request, 'search.html', context={'questions': page.object_list, 'page_obj': page, 'tag': tag})
 
 

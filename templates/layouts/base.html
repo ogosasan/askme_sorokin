@@ -42,17 +42,11 @@
                 <section class="popular-tags">
                     <h2>Popular Tags</h2>
                     <div class="tags">
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <br>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <br>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
-                        <a href="{% url 'search' 'Tag' %}">Tag</a>
+                        {% for tag in tags  %}
+                            <a href="{% url 'search' tag.name %}">{{ tag.name }}</a>
+                            <br>
+                        {% endfor %}
+
                     </div>
                 </section>
                 <section class="best-members">
