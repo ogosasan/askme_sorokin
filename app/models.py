@@ -11,7 +11,6 @@ class QuestionManager(models.Manager):
         return self.order_by('-created_at')
 
 
-
 # Create your models here.
 class Tag(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -19,14 +18,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-    def path (self):
+    def path(self):
         return
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.ImageField(null=True, blank=True)
-
-
 
 
 class Question(models.Model):

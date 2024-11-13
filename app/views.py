@@ -9,25 +9,24 @@ from app.models import Question, Answer, QuestionLike, QuestionManager, Tag
 
 
 def index(request):
-    questions = QuestionManager.newest(Question.objects.all())
+    questions = Question.objects.newest()
     page = pagination(request, questions)
     tags = Tag.objects.all()[:9]
     return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page, 'tags': tags})
 
 
 def hot(request):
-    questions = QuestionManager.hot(Question.objects.all())
+    questions = Question.objects.hot()
     page = pagination(request, questions)
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def question(request, question_id):
-    questions = Question.objects.all()
     try:
         question_id = int(question_id)
-        if question_id <= 0 or question_id > len(questions):
+        if question_id <= 0:
             raise IndexError
-        one_question = questions[question_id - 1]
+        one_question = Question.objects.filter(id=question_id).first()
     except (ValueError, IndexError):
         raise Http404("Question not found")
     tags = one_question.tags.all()
